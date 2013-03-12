@@ -2,48 +2,36 @@ package com.loki2302.evaluation;
 
 import com.google.inject.Inject;
 import com.loki2302.expression.Expression;
-import com.loki2302.expression.Type;
 
 public class AddOperationExplicitizer {	
-	@Inject AddOperationRepository addOperationRepository;
-	@Inject CastOperationLogic castOperationLogic;
+	// TODO: get this stuff injected as Set<> of implementations
+	@Inject ExactMatcher exactMatcher;
+	@Inject ImplicitRightMatcher implicitRightMatcher;
+	@Inject ImplicitLeftMatcher implicitLeftMatcher;
+	//
+	
+	public ExpressionResult makeOperationExpression(
+			Expression leftExpression, 
+			Expression rightExpression) {
 		
-	public ExpressionResult makeOperationExpression(Expression leftExpression, Expression rightExpression) {
-		Type leftType = leftExpression.getType();
-		Type rightType = rightExpression.getType();					
+		// TODO: get this stuff injected as Set<> of implementations
+		Matcher[] matchers = { 
+				exactMatcher, 
+				implicitRightMatcher, 
+				implicitLeftMatcher 
+		};
+		//
 		
-		AddOperationDefinition addOperationDefinition = 
-				addOperationRepository.findByLeftAndRightTypes(leftType, rightType);
-		if(addOperationDefinition != null) {
-			return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(
-					leftExpression,
-					rightExpression));
-		}
-		
-		addOperationDefinition = addOperationRepository.findByLeftType(leftType);
-		if(addOperationDefinition != null) {
-			Type requiredRightType = addOperationDefinition.getRightType();
-			ExpressionResult castResult = castOperationLogic.implicitlyCast(
-					rightExpression, 
-					requiredRightType);
-			if(castResult.isOk()) {
-				return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(
-						leftExpression, 
-						castResult.getExpression()));
-			}					
-		}
-		
-		addOperationDefinition = addOperationRepository.findByRightType(rightType);
-		if(addOperationDefinition != null) {
-			Type requiredLeftType = addOperationDefinition.getLeftType();
-			ExpressionResult castResult = castOperationLogic.implicitlyCast(
+		for(Matcher matcher : matchers) {
+			ExpressionResult expressionResult = matcher.match(
 					leftExpression, 
-					requiredLeftType);
-			if(castResult.isOk()) {
-				return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(
-						castResult.getExpression(),
-						rightExpression));
+					rightExpression);
+			
+			if(!expressionResult.isOk()) {
+				continue;
 			}
+			
+			return expressionResult;
 		}
 		
 		return ExpressionResult.fail();
