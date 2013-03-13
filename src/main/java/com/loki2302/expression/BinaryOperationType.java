@@ -19,6 +19,10 @@ public enum BinaryOperationType {
 	DoubleGreaterOrEqual,
 	IntEqual,
 	DoubleEqual,
+	BoolEqual,
 	IntNotEqual,
-	DoubleNotEqual
+	DoubleNotEqual,
+	BoolNotEqual,
+	BoolAnd,
+	BoolOr	
 }
