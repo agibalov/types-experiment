@@ -10,5 +10,7 @@ public enum DOMBinaryExpressionType {
 	Greater,
 	GreaterOrEqual,
 	Equal,
-	NotEqual
+	NotEqual,
+	And,
+	Or
 }
