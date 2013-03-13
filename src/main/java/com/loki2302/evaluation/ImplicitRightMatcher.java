@@ -4,13 +4,15 @@ import com.google.inject.Inject;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
-public class ImplicitRightMatcher implements Matcher {
-	@Inject AddOperationRepository addOperationRepository;
+public class ImplicitRightMatcher implements Matcher {	
 	@Inject CastOperationLogic castOperationLogic;
 
-	public ExpressionResult match(Expression leftExpression, Expression rightExpression) {
+	public ExpressionResult match(
+			BinaryOperationRepository binaryOperationRepository,
+			Expression leftExpression, 
+			Expression rightExpression) {
 		Type leftType = leftExpression.getType();		
-		AddOperationDefinition addOperationDefinition = addOperationRepository.findByLeftType(leftType);
+		BinaryOperationDefinition addOperationDefinition = binaryOperationRepository.findByLeftType(leftType);
 		if(addOperationDefinition != null) {
 			Type requiredRightType = addOperationDefinition.getRightType();
 			ExpressionResult castResult = castOperationLogic.implicitlyCast(

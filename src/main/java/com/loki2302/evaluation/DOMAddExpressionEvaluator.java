@@ -5,8 +5,14 @@ import com.loki2302.dom.DOMAddExpression;
 import com.loki2302.dom.DOMExpression;
 import com.loki2302.expression.Expression;
 
-public class DOMAddExpressionEvaluator {
-	@Inject AddOperationExplicitizer addOperationExplicitizer;
+public class DOMAddExpressionEvaluator {	
+	@Inject AddOperationRepository addOperationRepository;
+	
+	// TODO: get this stuff injected
+	@Inject ExactMatcher exactMatcher;
+	@Inject ImplicitRightMatcher implicitRightMatcher;
+	@Inject ImplicitLeftMatcher implicitLeftMatcher;
+	//
 	
 	public ExpressionResult evaluateDOMAddExpression(DOMAddExpression expression, DOMExpressionEvaluator domExpressionEvaluator) {			
 		DOMExpression leftDOMExpression = expression.getLeftExpression();
@@ -20,6 +26,17 @@ public class DOMAddExpressionEvaluator {
 		
 		Expression leftExpression = leftResult.getExpression();
 		Expression rightExpression = rightResult.getExpression();
-		return addOperationExplicitizer.makeOperationExpression(leftExpression, rightExpression);
+		
+		// TODO: get this stuff injected 
+		AlternativeMatcher matcher = new AlternativeMatcher(
+				exactMatcher, 
+				implicitRightMatcher, 
+				implicitLeftMatcher);
+		//
+		
+		return matcher.match(
+				addOperationRepository, 
+				leftExpression, 
+				rightExpression);
 	}
 }

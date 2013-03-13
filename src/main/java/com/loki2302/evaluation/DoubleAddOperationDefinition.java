@@ -4,7 +4,7 @@ import com.loki2302.expression.DoubleAddExpression;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
-public class DoubleAddOperationDefinition implements AddOperationDefinition {
+public class DoubleAddOperationDefinition implements BinaryOperationDefinition {
 	public Type getLeftType() {
 		return Type.Double;
 	}

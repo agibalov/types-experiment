@@ -5,7 +5,7 @@ import com.loki2302.expression.IntAddExpression;
 import com.loki2302.expression.Type;
 
 
-public class IntAddOperationDefinition implements AddOperationDefinition {
+public class IntAddOperationDefinition implements BinaryOperationDefinition {
 	public Type getLeftType() {
 		return Type.Int;
 	}
