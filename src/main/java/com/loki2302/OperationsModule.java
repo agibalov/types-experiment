@@ -6,17 +6,17 @@ import java.util.List;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
-import com.loki2302.evaluation.AlternativeBinaryOperationMatcher;
-import com.loki2302.evaluation.BinaryOperationDefinition;
-import com.loki2302.evaluation.BinaryOperationRepository;
-import com.loki2302.evaluation.CastIntToDoubleOperationDefinition;
-import com.loki2302.evaluation.CastOperationRepository;
-import com.loki2302.evaluation.DoubleAddOperationDefinition;
-import com.loki2302.evaluation.ExactMatcher;
-import com.loki2302.evaluation.ImplicitLeftBinaryOperationMatcher;
-import com.loki2302.evaluation.ImplicitRightBinaryOperationMatcher;
-import com.loki2302.evaluation.IntAddOperationDefinition;
-import com.loki2302.evaluation.BinaryOperationMatcher;
+import com.loki2302.evaluation.matcher.AlternativeBinaryOperationMatcher;
+import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
+import com.loki2302.evaluation.matcher.ExactMatcher;
+import com.loki2302.evaluation.matcher.ImplicitLeftBinaryOperationMatcher;
+import com.loki2302.evaluation.matcher.ImplicitRightBinaryOperationMatcher;
+import com.loki2302.evaluation.operations.BinaryOperationDefinition;
+import com.loki2302.evaluation.operations.BinaryOperationRepository;
+import com.loki2302.evaluation.operations.add.DoubleAddOperationDefinition;
+import com.loki2302.evaluation.operations.add.IntAddOperationDefinition;
+import com.loki2302.evaluation.operations.cast.CastIntToDoubleOperationDefinition;
+import com.loki2302.evaluation.operations.cast.CastOperationRepository;
 
 public class OperationsModule extends AbstractModule {
 	@Override

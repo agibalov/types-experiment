@@ -1,6 +1,5 @@
 package com.loki2302.dom;
 
-
 public class DOMDoubleLiteralExpression implements DOMExpression {
 	private final String stringValue;
 	

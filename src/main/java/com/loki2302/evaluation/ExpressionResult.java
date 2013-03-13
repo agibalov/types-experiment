@@ -2,7 +2,6 @@ package com.loki2302.evaluation;
 
 import com.loki2302.expression.Expression;
 
-
 public class ExpressionResult {
 	private boolean ok;
 	private Expression expression;

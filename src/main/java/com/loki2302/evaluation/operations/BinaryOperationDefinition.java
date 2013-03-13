@@ -1,4 +1,4 @@
-package com.loki2302.evaluation;
+package com.loki2302.evaluation.operations;
 
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;

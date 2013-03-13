@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.loki2302.dom.DOMAddExpression;
 import com.loki2302.dom.DOMExpression;
+import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
+import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.expression.Expression;
 
 public class DOMAddExpressionEvaluator {	

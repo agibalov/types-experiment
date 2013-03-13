@@ -1,6 +1,11 @@
-package com.loki2302.evaluation;
+package com.loki2302.evaluation.matcher;
 
 import com.google.inject.Inject;
+import com.loki2302.evaluation.ExpressionResult;
+import com.loki2302.evaluation.operations.BinaryOperationDefinition;
+import com.loki2302.evaluation.operations.BinaryOperationRepository;
+import com.loki2302.evaluation.operations.cast.CastOperationDefinition;
+import com.loki2302.evaluation.operations.cast.CastOperationRepository;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
