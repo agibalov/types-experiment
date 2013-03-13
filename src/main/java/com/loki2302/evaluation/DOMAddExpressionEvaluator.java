@@ -1,19 +1,15 @@
 package com.loki2302.evaluation;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.loki2302.dom.DOMAddExpression;
 import com.loki2302.dom.DOMExpression;
 import com.loki2302.expression.Expression;
 
 public class DOMAddExpressionEvaluator {	
-	@Inject AddOperationRepository addOperationRepository;
-	
-	// TODO: get this stuff injected
-	@Inject ExactMatcher exactMatcher;
-	@Inject ImplicitRightMatcher implicitRightMatcher;
-	@Inject ImplicitLeftMatcher implicitLeftMatcher;
-	//
-	
+	@Inject @Named("addOperationRepository") BinaryOperationRepository addOperationRepository;
+	@Inject @Named("addOperationMatcher") Matcher addOperationMatcher;
+		
 	public ExpressionResult evaluateDOMAddExpression(DOMAddExpression expression, DOMExpressionEvaluator domExpressionEvaluator) {			
 		DOMExpression leftDOMExpression = expression.getLeftExpression();
 		DOMExpression rightDOMExpression = expression.getRightExpression();
@@ -27,14 +23,7 @@ public class DOMAddExpressionEvaluator {
 		Expression leftExpression = leftResult.getExpression();
 		Expression rightExpression = rightResult.getExpression();
 		
-		// TODO: get this stuff injected 
-		AlternativeMatcher matcher = new AlternativeMatcher(
-				exactMatcher, 
-				implicitRightMatcher, 
-				implicitLeftMatcher);
-		//
-		
-		return matcher.match(
+		return addOperationMatcher.match(
 				addOperationRepository, 
 				leftExpression, 
 				rightExpression);

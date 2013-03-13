@@ -73,7 +73,7 @@ public class AppTest {
 	}
 		
 	private static Expression expression(DOMExpression domExpression) {
-		Injector injector = Guice.createInjector();		
+		Injector injector = Guice.createInjector(new OperationsModule());		
 		DOMExpressionEvaluator domExpressionEvaluator = injector.getInstance(DOMExpressionEvaluator.class);
 		ExpressionResult result = domExpressionEvaluator.evaluateDOMExpression(domExpression);
 		return result.getExpression();

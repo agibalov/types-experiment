@@ -9,7 +9,6 @@ import com.loki2302.dom.DOMIntLiteralExpression;
 import com.loki2302.evaluation.DOMExpressionEvaluator;
 import com.loki2302.evaluation.ExpressionResult;
 
-
 public class App {	
 	
 	// add: IntAdd, DoubleAdd
@@ -30,9 +29,9 @@ public class App {
 				new DOMIntLiteralExpression("1"),
 				new DOMDoubleLiteralExpression("3.14"));
 		
-		Injector injector = Guice.createInjector();		
+		Injector injector = Guice.createInjector(new OperationsModule());		
 		DOMExpressionEvaluator domExpressionEvaluator = injector.getInstance(DOMExpressionEvaluator.class);
 		ExpressionResult result = domExpressionEvaluator.evaluateDOMExpression(domExpression);
 		System.out.println(result);
-	}    
+	}
 }
