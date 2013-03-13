@@ -2,10 +2,11 @@ package com.loki2302;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.loki2302.dom.DOMAddExpression;
-import com.loki2302.dom.DOMDoubleLiteralExpression;
+import com.loki2302.dom.DOMBinaryExpression;
+import com.loki2302.dom.DOMBinaryExpressionType;
 import com.loki2302.dom.DOMExpression;
-import com.loki2302.dom.DOMIntLiteralExpression;
+import com.loki2302.dom.DOMLiteralExpression;
+import com.loki2302.dom.DOMLiteralType;
 import com.loki2302.evaluation.DOMExpressionEvaluator;
 import com.loki2302.evaluation.ExpressionResult;
 
@@ -25,9 +26,10 @@ public class App {
 	// implicit-cast: int->double
 	
 	public static void main(String[] args) {		
-		DOMExpression domExpression = new DOMAddExpression(
-				new DOMIntLiteralExpression("1"),
-				new DOMDoubleLiteralExpression("3.14"));
+		DOMExpression domExpression = new DOMBinaryExpression(
+				DOMBinaryExpressionType.Add,
+				new DOMLiteralExpression(DOMLiteralType.Int, "1"),
+				new DOMLiteralExpression(DOMLiteralType.Double, "3.14"));
 		
 		Injector injector = Guice.createInjector(new OperationsModule());		
 		DOMExpressionEvaluator domExpressionEvaluator = injector.getInstance(DOMExpressionEvaluator.class);

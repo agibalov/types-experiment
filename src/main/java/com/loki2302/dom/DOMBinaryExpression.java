@@ -1,12 +1,22 @@
 package com.loki2302.dom;
 
-public abstract class DOMBinaryExpression implements DOMExpression {
+public class DOMBinaryExpression implements DOMExpression {
+	private final DOMBinaryExpressionType expressionType;
 	private final DOMExpression leftExpression;
 	private final DOMExpression rightExpression;
 	
-	protected DOMBinaryExpression(DOMExpression leftExpression, DOMExpression rightExpression) {
+	public DOMBinaryExpression(
+			DOMBinaryExpressionType expressionType, 
+			DOMExpression leftExpression, 
+			DOMExpression rightExpression) {
+		
+		this.expressionType = expressionType;
 		this.leftExpression = leftExpression;
 		this.rightExpression = rightExpression;
+	}
+	
+	public DOMBinaryExpressionType getExpressionType() {
+		return expressionType;
 	}
 	
 	public DOMExpression getLeftExpression() {
@@ -15,5 +25,10 @@ public abstract class DOMBinaryExpression implements DOMExpression {
 	
 	public DOMExpression getRightExpression() {
 		return rightExpression;
-	}	
+	}
+
+	@Override
+	public <T> T accept(DOMExpressionVisitor<T> visitor) {
+		return visitor.visitDOMBinaryExpression(this);
+	}
 }

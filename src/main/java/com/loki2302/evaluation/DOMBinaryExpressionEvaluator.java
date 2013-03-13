@@ -2,17 +2,22 @@ package com.loki2302.evaluation;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.loki2302.dom.DOMAddExpression;
+import com.loki2302.dom.DOMBinaryExpression;
+import com.loki2302.dom.DOMBinaryExpressionType;
 import com.loki2302.dom.DOMExpression;
 import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.expression.Expression;
 
-public class DOMAddExpressionEvaluator {	
+public class DOMBinaryExpressionEvaluator {	
 	@Inject @Named("addOperationRepository") BinaryOperationRepository addOperationRepository;
 	@Inject @Named("addOperationMatcher") BinaryOperationMatcher addOperationMatcher;
 		
-	public ExpressionResult evaluateDOMAddExpression(DOMAddExpression expression, DOMExpressionEvaluator domExpressionEvaluator) {			
+	public ExpressionResult evaluateDOMBinaryExpression(DOMBinaryExpression expression, DOMExpressionEvaluator domExpressionEvaluator) {
+		if(expression.getExpressionType() != DOMBinaryExpressionType.Add) {
+			throw new RuntimeException();
+		}
+		
 		DOMExpression leftDOMExpression = expression.getLeftExpression();
 		DOMExpression rightDOMExpression = expression.getRightExpression();
 		
