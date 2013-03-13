@@ -5,7 +5,7 @@ import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
 public class ImplicitRightMatcher implements Matcher {	
-	@Inject CastOperationLogic castOperationLogic;
+	@Inject CastOperationRepository castOperationRepository;
 
 	public ExpressionResult match(
 			BinaryOperationRepository binaryOperationRepository,
@@ -15,14 +15,18 @@ public class ImplicitRightMatcher implements Matcher {
 		BinaryOperationDefinition addOperationDefinition = binaryOperationRepository.findByLeftType(leftType);
 		if(addOperationDefinition != null) {
 			Type requiredRightType = addOperationDefinition.getRightType();
-			ExpressionResult castResult = castOperationLogic.implicitlyCast(
-					rightExpression, 
-					requiredRightType);
-			if(castResult.isOk()) {
-				return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(
-						leftExpression, 
-						castResult.getExpression()));
-			}					
+			Type rightType = rightExpression.getType();
+			
+			CastOperationDefinition castOperationDefinition = 
+					castOperationRepository.findImplicitBySourceAndDestinationTypes(
+							rightType, 
+							requiredRightType);
+			
+			if(castOperationDefinition != null) {
+				return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(						
+						leftExpression,
+						castOperationDefinition.makeExpression(rightExpression)));
+			}
 		}
 		
 		return ExpressionResult.fail();
