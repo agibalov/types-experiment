@@ -12,10 +12,10 @@ import com.loki2302.expression.Type;
 import static com.loki2302.evaluation.operations.BinaryOperationRepository.*;
 
 public class ImplicitRightBinaryOperationMatcher implements BinaryOperationMatcher {	
+	@Inject BinaryOperationRepository binaryOperationRepository;
 	@Inject CastOperationRepository castOperationRepository;
 
-	public ExpressionResult match(
-			BinaryOperationRepository binaryOperationRepository,
+	public ExpressionResult match(			
 			BinaryOperationSemantics semantics,
 			Expression leftExpression, 
 			Expression rightExpression) {

@@ -2,21 +2,17 @@ package com.loki2302.evaluation;
 
 import com.loki2302.dom.DOMExpression;
 import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
-import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.expression.BinaryOperationSemantics;
 import com.loki2302.expression.Expression;
 
 public class DOMMatchingBinaryExpressionEvaluator {
-	private final BinaryOperationSemantics semantics;
-	private final BinaryOperationRepository operationRepository;
+	private final BinaryOperationSemantics semantics;	
 	private final BinaryOperationMatcher operationMatcher;
 	
 	public DOMMatchingBinaryExpressionEvaluator(
-			BinaryOperationSemantics semantics,
-			BinaryOperationRepository operationRepository,
+			BinaryOperationSemantics semantics,			
 			BinaryOperationMatcher operationMatcher) {
-		this.semantics = semantics;
-		this.operationRepository = operationRepository;
+		this.semantics = semantics;		
 		this.operationMatcher = operationMatcher;
 	}
 	
@@ -34,8 +30,7 @@ public class DOMMatchingBinaryExpressionEvaluator {
 		Expression leftExpression = leftResult.getExpression();
 		Expression rightExpression = rightResult.getExpression();
 		
-		return operationMatcher.match(
-				operationRepository, 
+		return operationMatcher.match(				 
 				semantics,
 				leftExpression, 
 				rightExpression);

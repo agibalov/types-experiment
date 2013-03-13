@@ -26,8 +26,7 @@ public class OperationsModule extends AbstractModule {
 	protected void configure() {
 	}
 	
-	@Provides
-	@Named("binaryOperationRepository")
+	@Provides	
 	BinaryOperationRepository provideAddOperationRepository() {
 		List<BinaryOperationDefinition> definitions = new ArrayList<BinaryOperationDefinition>();
 		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Add, BinaryOperationType.IntAdd, Type.Int, Type.Int, Type.Int));
@@ -72,11 +71,9 @@ public class OperationsModule extends AbstractModule {
 	@Provides
 	@Named("addExpressionEvaluator")
 	DOMMatchingBinaryExpressionEvaluator provideAddExpressionEvaluator(
-			@Named("binaryOperationRepository") BinaryOperationRepository binaryOperationRepository,
 			@Named("addOperationMatcher") BinaryOperationMatcher operationMatcher) {
 		return new DOMMatchingBinaryExpressionEvaluator(
 				BinaryOperationSemantics.Add,
-				binaryOperationRepository,
 				operationMatcher);
 	}
 	
