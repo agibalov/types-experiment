@@ -11,13 +11,13 @@ public class ExactMatcher implements BinaryOperationMatcher {
 			BinaryOperationRepository binaryOperationRepository,
 			Expression leftExpression, 
 			Expression rightExpression) {
-		Type leftType = leftExpression.getType();
-		Type rightType = rightExpression.getType();					
+		Type leftType = leftExpression.getResultType();
+		Type rightType = rightExpression.getResultType();					
 		
 		BinaryOperationDefinition addOperationDefinition = 
 				binaryOperationRepository.findByLeftAndRightTypes(leftType, rightType);
 		if(addOperationDefinition != null) {
-			return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(
+			return ExpressionResult.ok(addOperationDefinition.makeExpression(
 					leftExpression,
 					rightExpression));
 		}

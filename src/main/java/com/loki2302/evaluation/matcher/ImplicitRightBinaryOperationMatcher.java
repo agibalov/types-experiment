@@ -16,11 +16,11 @@ public class ImplicitRightBinaryOperationMatcher implements BinaryOperationMatch
 			BinaryOperationRepository binaryOperationRepository,
 			Expression leftExpression, 
 			Expression rightExpression) {
-		Type leftType = leftExpression.getType();		
+		Type leftType = leftExpression.getResultType();		
 		BinaryOperationDefinition addOperationDefinition = binaryOperationRepository.findByLeftType(leftType);
 		if(addOperationDefinition != null) {
 			Type requiredRightType = addOperationDefinition.getRightType();
-			Type rightType = rightExpression.getType();
+			Type rightType = rightExpression.getResultType();
 			
 			CastOperationDefinition castOperationDefinition = 
 					castOperationRepository.findImplicitBySourceAndDestinationTypes(
@@ -28,7 +28,7 @@ public class ImplicitRightBinaryOperationMatcher implements BinaryOperationMatch
 							requiredRightType);
 			
 			if(castOperationDefinition != null) {
-				return ExpressionResult.ok(addOperationDefinition.makeOperationExpression(						
+				return ExpressionResult.ok(addOperationDefinition.makeExpression(						
 						leftExpression,
 						castOperationDefinition.makeExpression(rightExpression)));
 			}

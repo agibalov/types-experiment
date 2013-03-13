@@ -16,7 +16,7 @@ public class DoubleLiteralExpression implements Expression {
 	}
 
 	@Override
-	public Type getType() {
+	public Type getResultType() {
 		return Type.Double;
 	}
 }

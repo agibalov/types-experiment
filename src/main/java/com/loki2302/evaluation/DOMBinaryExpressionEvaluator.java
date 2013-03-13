@@ -4,35 +4,40 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.loki2302.dom.DOMBinaryExpression;
 import com.loki2302.dom.DOMBinaryExpressionType;
-import com.loki2302.dom.DOMExpression;
-import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
-import com.loki2302.evaluation.operations.BinaryOperationRepository;
-import com.loki2302.expression.Expression;
 
 public class DOMBinaryExpressionEvaluator {	
-	@Inject @Named("addOperationRepository") BinaryOperationRepository addOperationRepository;
-	@Inject @Named("addOperationMatcher") BinaryOperationMatcher addOperationMatcher;
+	@Inject @Named("addExpressionEvaluator") DOMMatchingBinaryExpressionEvaluator addExpressionEvaluator;
 		
-	public ExpressionResult evaluateDOMBinaryExpression(DOMBinaryExpression expression, DOMExpressionEvaluator domExpressionEvaluator) {
-		if(expression.getExpressionType() != DOMBinaryExpressionType.Add) {
+	public ExpressionResult evaluateDOMBinaryExpression(
+			DOMBinaryExpression expression, 
+			DOMExpressionEvaluator domExpressionEvaluator) {
+		
+		DOMBinaryExpressionType expressionType = expression.getExpressionType();
+		if(expressionType == DOMBinaryExpressionType.Add) {
+			return addExpressionEvaluator.evaluateBinaryExpression(
+					expression.getLeftExpression(),
+					expression.getRightExpression(),
+					domExpressionEvaluator);
+		} else if(expressionType == DOMBinaryExpressionType.Sub) {
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.Mul) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.Div) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.Less) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.LessOrEqual) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.Greater) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.GreaterOrEqual) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.Equal) {			
+			throw new RuntimeException();
+		} else if(expressionType == DOMBinaryExpressionType.NotEqual) {			
 			throw new RuntimeException();
 		}
 		
-		DOMExpression leftDOMExpression = expression.getLeftExpression();
-		DOMExpression rightDOMExpression = expression.getRightExpression();
-		
-		ExpressionResult leftResult = domExpressionEvaluator.evaluateDOMExpression(leftDOMExpression);
-		ExpressionResult rightResult = domExpressionEvaluator.evaluateDOMExpression(rightDOMExpression);
-		if(!leftResult.isOk() || !rightResult.isOk()) {
-			return ExpressionResult.fail();
-		}			
-		
-		Expression leftExpression = leftResult.getExpression();
-		Expression rightExpression = rightResult.getExpression();
-		
-		return addOperationMatcher.match(
-				addOperationRepository, 
-				leftExpression, 
-				rightExpression);
+		throw new RuntimeException();
 	}
 }

@@ -16,7 +16,7 @@ public class IntLiteralExpression implements Expression {
 	}
 
 	@Override
-	public Type getType() {
+	public Type getResultType() {
 		return Type.Int;
 	}
 }
