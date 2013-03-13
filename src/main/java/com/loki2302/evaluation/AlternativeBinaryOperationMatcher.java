@@ -2,10 +2,10 @@ package com.loki2302.evaluation;
 
 import com.loki2302.expression.Expression;
 
-public class AlternativeMatcher implements Matcher {		
-	private final Matcher[] matchers;
+public class AlternativeBinaryOperationMatcher implements BinaryOperationMatcher {		
+	private final BinaryOperationMatcher[] matchers;
 	
-	public AlternativeMatcher(Matcher... matchers) {
+	public AlternativeBinaryOperationMatcher(BinaryOperationMatcher... matchers) {
 		this.matchers = matchers;
 	}
 	
@@ -15,7 +15,7 @@ public class AlternativeMatcher implements Matcher {
 			Expression leftExpression, 
 			Expression rightExpression) {
 		
-		for(Matcher matcher : matchers) {
+		for(BinaryOperationMatcher matcher : matchers) {
 			ExpressionResult expressionResult = matcher.match(
 					binaryOperationRepository,
 					leftExpression, 

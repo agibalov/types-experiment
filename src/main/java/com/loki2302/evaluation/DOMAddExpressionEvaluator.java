@@ -8,7 +8,7 @@ import com.loki2302.expression.Expression;
 
 public class DOMAddExpressionEvaluator {	
 	@Inject @Named("addOperationRepository") BinaryOperationRepository addOperationRepository;
-	@Inject @Named("addOperationMatcher") Matcher addOperationMatcher;
+	@Inject @Named("addOperationMatcher") BinaryOperationMatcher addOperationMatcher;
 		
 	public ExpressionResult evaluateDOMAddExpression(DOMAddExpression expression, DOMExpressionEvaluator domExpressionEvaluator) {			
 		DOMExpression leftDOMExpression = expression.getLeftExpression();

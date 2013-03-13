@@ -3,7 +3,7 @@ package com.loki2302.evaluation;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
-public class ExactMatcher implements Matcher {	
+public class ExactMatcher implements BinaryOperationMatcher {	
 	public ExpressionResult match(
 			BinaryOperationRepository binaryOperationRepository,
 			Expression leftExpression, 
