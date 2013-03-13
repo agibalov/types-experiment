@@ -9,6 +9,7 @@ import com.loki2302.evaluation.operations.cast.CastOperationRepository;
 import com.loki2302.expression.BinaryOperationSemantics;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
+import static com.loki2302.evaluation.operations.BinaryOperationRepository.*;
 
 public class ImplicitLeftBinaryOperationMatcher implements BinaryOperationMatcher {
 	@Inject CastOperationRepository castOperationRepository;
@@ -21,9 +22,9 @@ public class ImplicitLeftBinaryOperationMatcher implements BinaryOperationMatche
 		
 		Type rightType = rightExpression.getResultType();		
 		BinaryOperationDefinition binaryOperationDefinition = 
-				binaryOperationRepository.findByRightType(
-						semantics, 
-						rightType);
+				binaryOperationRepository.firstWhere(
+						semanticsIs(semantics), 
+						rightTypeIs(rightType));
 		
 		if(binaryOperationDefinition != null) {
 			Type requiredLeftType = binaryOperationDefinition.getLeftType();

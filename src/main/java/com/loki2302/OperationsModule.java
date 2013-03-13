@@ -29,32 +29,32 @@ public class OperationsModule extends AbstractModule {
 	@Provides
 	@Named("binaryOperationRepository")
 	BinaryOperationRepository provideAddOperationRepository() {
-		List<BinaryOperationDefinition> addOperationDefinitions = new ArrayList<BinaryOperationDefinition>();
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Add, BinaryOperationType.IntAdd, Type.Int, Type.Int, Type.Int));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Add, BinaryOperationType.DoubleAdd, Type.Double, Type.Double, Type.Double));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Sub, BinaryOperationType.IntSub, Type.Int, Type.Int, Type.Int));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Sub, BinaryOperationType.DoubleSub, Type.Double, Type.Double, Type.Double));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Mul, BinaryOperationType.IntMul, Type.Int, Type.Int, Type.Int));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Mul, BinaryOperationType.DoubleMul, Type.Double, Type.Double, Type.Double));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Div, BinaryOperationType.IntDiv, Type.Int, Type.Int, Type.Int));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Div, BinaryOperationType.DoubleDiv, Type.Double, Type.Double, Type.Double));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Less, BinaryOperationType.IntLess, Type.Int, Type.Int, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Less, BinaryOperationType.DoubleLess, Type.Double, Type.Double, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.LessOrEqual, BinaryOperationType.IntLessOrEqual, Type.Int, Type.Int, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.LessOrEqual, BinaryOperationType.DoubleLessOrEqual, Type.Double, Type.Double, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Greater, BinaryOperationType.IntGreater, Type.Int, Type.Int, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Greater, BinaryOperationType.DoubleGreater, Type.Double, Type.Double, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.GreaterOrEqual, BinaryOperationType.IntGreaterOrEqual, Type.Int, Type.Int, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.GreaterOrEqual, BinaryOperationType.DoubleGreaterOrEqual, Type.Double, Type.Double, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Equal, BinaryOperationType.IntEqual, Type.Int, Type.Int, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Equal, BinaryOperationType.DoubleEqual, Type.Double, Type.Double, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Equal, BinaryOperationType.BoolEqual, Type.Bool, Type.Bool, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.NotEqual, BinaryOperationType.IntNotEqual, Type.Int, Type.Int, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.NotEqual, BinaryOperationType.DoubleNotEqual, Type.Double, Type.Double, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.NotEqual, BinaryOperationType.BoolNotEqual, Type.Bool, Type.Bool, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.And, BinaryOperationType.BoolAnd, Type.Bool, Type.Bool, Type.Bool));
-		addOperationDefinitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Or, BinaryOperationType.BoolOr, Type.Bool, Type.Bool, Type.Bool));
-		return new BinaryOperationRepository(addOperationDefinitions);
+		List<BinaryOperationDefinition> definitions = new ArrayList<BinaryOperationDefinition>();
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Add, BinaryOperationType.IntAdd, Type.Int, Type.Int, Type.Int));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Add, BinaryOperationType.DoubleAdd, Type.Double, Type.Double, Type.Double));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Sub, BinaryOperationType.IntSub, Type.Int, Type.Int, Type.Int));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Sub, BinaryOperationType.DoubleSub, Type.Double, Type.Double, Type.Double));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Mul, BinaryOperationType.IntMul, Type.Int, Type.Int, Type.Int));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Mul, BinaryOperationType.DoubleMul, Type.Double, Type.Double, Type.Double));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Div, BinaryOperationType.IntDiv, Type.Int, Type.Int, Type.Int));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Div, BinaryOperationType.DoubleDiv, Type.Double, Type.Double, Type.Double));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Less, BinaryOperationType.IntLess, Type.Int, Type.Int, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Less, BinaryOperationType.DoubleLess, Type.Double, Type.Double, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.LessOrEqual, BinaryOperationType.IntLessOrEqual, Type.Int, Type.Int, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.LessOrEqual, BinaryOperationType.DoubleLessOrEqual, Type.Double, Type.Double, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Greater, BinaryOperationType.IntGreater, Type.Int, Type.Int, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Greater, BinaryOperationType.DoubleGreater, Type.Double, Type.Double, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.GreaterOrEqual, BinaryOperationType.IntGreaterOrEqual, Type.Int, Type.Int, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.GreaterOrEqual, BinaryOperationType.DoubleGreaterOrEqual, Type.Double, Type.Double, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Equal, BinaryOperationType.IntEqual, Type.Int, Type.Int, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Equal, BinaryOperationType.DoubleEqual, Type.Double, Type.Double, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Equal, BinaryOperationType.BoolEqual, Type.Bool, Type.Bool, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.NotEqual, BinaryOperationType.IntNotEqual, Type.Int, Type.Int, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.NotEqual, BinaryOperationType.DoubleNotEqual, Type.Double, Type.Double, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.NotEqual, BinaryOperationType.BoolNotEqual, Type.Bool, Type.Bool, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.And, BinaryOperationType.BoolAnd, Type.Bool, Type.Bool, Type.Bool));
+		definitions.add(new BinaryOperationDefinition(BinaryOperationSemantics.Or, BinaryOperationType.BoolOr, Type.Bool, Type.Bool, Type.Bool));
+		return new BinaryOperationRepository(definitions);
 	}
 	
 	@Provides

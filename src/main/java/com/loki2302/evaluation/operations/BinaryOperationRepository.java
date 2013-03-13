@@ -11,66 +11,77 @@ public class BinaryOperationRepository {
 	public BinaryOperationRepository(List<BinaryOperationDefinition> definitions) {
 		this.definitions = definitions;
 	}
+	
+	public BinaryOperationDefinition firstWhere(BinaryOperationDefinitionPredicate... predicates) {
+		for(BinaryOperationDefinition operationDefinition : definitions) {
+			boolean found = true;
+			for(BinaryOperationDefinitionPredicate predicate : predicates) {
+				if(!predicate.match(operationDefinition)) {
+					found = false;
+					break;
+				}
+			}
+			
+			if(found) {
+				return operationDefinition;
+			}
+		}
+		
+		return null;
+	}
 
-	public BinaryOperationDefinition findByLeftAndRightTypes(
-			BinaryOperationSemantics semantics, 
-			Type leftType, 
-			Type rightType) {
-		
-		for(BinaryOperationDefinition operationDefinition : definitions) {
-			if(operationDefinition.getSemantics() != semantics) {
-				continue;
-			}
-			
-			if(operationDefinition.getLeftType() != leftType) {
-				continue;
-			}
-			
-			if(operationDefinition.getRightType() != rightType) {
-				continue;
-			}
-			
-			return operationDefinition;
-		}	
-		
-		return null;
+	public static BinaryOperationDefinitionPredicate semanticsIs(BinaryOperationSemantics semantics) {
+		return new SemanticsIsPredicate(semantics);
 	}
 	
-	public BinaryOperationDefinition findByLeftType(
-			BinaryOperationSemantics semantics, 
-			Type leftType) {
-		
-		for(BinaryOperationDefinition operationDefinition : definitions) {
-			if(operationDefinition.getSemantics() != semantics) {
-				continue;
-			}
-			
-			if(operationDefinition.getLeftType() != leftType) {
-				continue;
-			}				
-			
-			return operationDefinition;
-		}	
-		
-		return null;
+	public static BinaryOperationDefinitionPredicate leftTypeIs(Type leftType) {
+		return new LeftTypeIsPredicate(leftType);
 	}
 	
-	public BinaryOperationDefinition findByRightType(
-			BinaryOperationSemantics semantics,
-			Type rightType) {
+	public static BinaryOperationDefinitionPredicate rightTypeIs(Type rightType) {
+		return new RightTypeIsPredicate(rightType);
+	}
+	
+	public static interface BinaryOperationDefinitionPredicate {
+		boolean match(BinaryOperationDefinition item);
+	}
+	
+	private static class SemanticsIsPredicate implements BinaryOperationDefinitionPredicate {
+		private final BinaryOperationSemantics semantics;
 		
-		for(BinaryOperationDefinition operationDefinition : definitions) {
-			if(operationDefinition.getSemantics() != semantics) {
-				continue;
-			}
-			
-			if(operationDefinition.getRightType() != rightType) {
-				continue;
-			}
-			
-			return operationDefinition;
-		}	
+		public SemanticsIsPredicate(BinaryOperationSemantics semantics) {
+			this.semantics = semantics;
+		}
 		
-		return null;
+		@Override
+		public boolean match(BinaryOperationDefinition item) {
+			return item.getSemantics() == semantics;
+		}		
+	}
+	
+	private static class LeftTypeIsPredicate implements BinaryOperationDefinitionPredicate {
+		private final Type type;
+		
+		public LeftTypeIsPredicate(Type type) {
+			this.type = type;
+		}
+		
+		@Override
+		public boolean match(BinaryOperationDefinition item) {
+			return item.getLeftType() == type;
+		}		
+	}
+	
+	private static class RightTypeIsPredicate implements BinaryOperationDefinitionPredicate {
+		private final Type type;
+		
+		public RightTypeIsPredicate(Type type) {
+			this.type = type;
+		}
+		
+		@Override
+		public boolean match(BinaryOperationDefinition item) {
+			return item.getRightType() == type;
+		}		
 	}
 }
