@@ -6,7 +6,7 @@ import com.loki2302.evaluation.operations.BinaryOperationDefinition;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.evaluation.operations.CastOperationDefinition;
 import com.loki2302.evaluation.operations.CastOperationRepository;
-import com.loki2302.expression.BinaryOperationSemantics;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 import static com.loki2302.evaluation.operations.BinaryOperationRepository.*;
@@ -16,7 +16,7 @@ public class ImplicitLeftBinaryOperationMatcher implements BinaryOperationMatche
 	@Inject CastOperationRepository castOperationRepository;
 	
 	public ExpressionResult match(			
-			BinaryOperationSemantics semantics,
+			BinaryOperationFamily semantics,
 			Expression leftExpression, 
 			Expression rightExpression) {
 		

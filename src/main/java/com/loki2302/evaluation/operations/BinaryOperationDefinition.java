@@ -1,20 +1,20 @@
 package com.loki2302.evaluation.operations;
 
 import com.loki2302.expression.BinaryExpression;
-import com.loki2302.expression.BinaryOperationSemantics;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.BinaryOperationType;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
 public class BinaryOperationDefinition {
-	private final BinaryOperationSemantics semantics;
+	private final BinaryOperationFamily semantics;
 	private final BinaryOperationType operationType;
 	private final Type leftType;
 	private final Type rightType;	
 	private final Type resultType;
 	
 	public BinaryOperationDefinition(
-			BinaryOperationSemantics semantics,
+			BinaryOperationFamily semantics,
 			BinaryOperationType operationType,
 			Type leftType,
 			Type rightType,			
@@ -27,7 +27,7 @@ public class BinaryOperationDefinition {
 		this.resultType = resultType;
 	}
 	
-	public BinaryOperationSemantics getSemantics() {
+	public BinaryOperationFamily getSemantics() {
 		return semantics;
 	}
 	

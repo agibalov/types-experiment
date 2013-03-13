@@ -2,15 +2,15 @@ package com.loki2302.evaluation;
 
 import com.loki2302.dom.DOMExpression;
 import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
-import com.loki2302.expression.BinaryOperationSemantics;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Expression;
 
 public class DOMMatchingBinaryExpressionEvaluator {
-	private final BinaryOperationSemantics semantics;	
+	private final BinaryOperationFamily semantics;	
 	private final BinaryOperationMatcher operationMatcher;
 	
 	public DOMMatchingBinaryExpressionEvaluator(
-			BinaryOperationSemantics semantics,			
+			BinaryOperationFamily semantics,			
 			BinaryOperationMatcher operationMatcher) {
 		this.semantics = semantics;		
 		this.operationMatcher = operationMatcher;

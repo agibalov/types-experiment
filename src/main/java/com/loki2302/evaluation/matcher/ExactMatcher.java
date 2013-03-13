@@ -5,7 +5,7 @@ import com.loki2302.evaluation.ExpressionResult;
 import com.loki2302.evaluation.operations.BinaryOperationDefinition;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import static com.loki2302.evaluation.operations.BinaryOperationRepository.*;
-import com.loki2302.expression.BinaryOperationSemantics;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
@@ -13,7 +13,7 @@ public class ExactMatcher implements BinaryOperationMatcher {
 	@Inject BinaryOperationRepository binaryOperationRepository;
 	
 	public ExpressionResult match(
-			BinaryOperationSemantics semantics,
+			BinaryOperationFamily semantics,
 			Expression leftExpression, 
 			Expression rightExpression) {
 		

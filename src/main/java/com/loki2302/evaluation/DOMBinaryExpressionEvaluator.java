@@ -3,7 +3,7 @@ package com.loki2302.evaluation;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.loki2302.dom.DOMBinaryExpression;
-import com.loki2302.dom.DOMBinaryExpressionType;
+import com.loki2302.expression.BinaryOperationFamily;
 
 public class DOMBinaryExpressionEvaluator {	
 	@Inject @Named("addExpressionEvaluator") DOMMatchingBinaryExpressionEvaluator addExpressionEvaluator;
@@ -12,29 +12,29 @@ public class DOMBinaryExpressionEvaluator {
 			DOMBinaryExpression expression, 
 			DOMExpressionEvaluator domExpressionEvaluator) {
 		
-		DOMBinaryExpressionType expressionType = expression.getExpressionType();
-		if(expressionType == DOMBinaryExpressionType.Add) {
+		BinaryOperationFamily expressionType = expression.getBinaryOperationFamily();
+		if(expressionType == BinaryOperationFamily.Add) {
 			return addExpressionEvaluator.evaluateBinaryExpression(
 					expression.getLeftExpression(),
 					expression.getRightExpression(),
 					domExpressionEvaluator);
-		} else if(expressionType == DOMBinaryExpressionType.Sub) {
+		} else if(expressionType == BinaryOperationFamily.Sub) {
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.Mul) {			
+		} else if(expressionType == BinaryOperationFamily.Mul) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.Div) {			
+		} else if(expressionType == BinaryOperationFamily.Div) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.Less) {			
+		} else if(expressionType == BinaryOperationFamily.Less) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.LessOrEqual) {			
+		} else if(expressionType == BinaryOperationFamily.LessOrEqual) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.Greater) {			
+		} else if(expressionType == BinaryOperationFamily.Greater) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.GreaterOrEqual) {			
+		} else if(expressionType == BinaryOperationFamily.GreaterOrEqual) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.Equal) {			
+		} else if(expressionType == BinaryOperationFamily.Equal) {			
 			throw new RuntimeException();
-		} else if(expressionType == DOMBinaryExpressionType.NotEqual) {			
+		} else if(expressionType == BinaryOperationFamily.NotEqual) {			
 			throw new RuntimeException();
 		}
 		

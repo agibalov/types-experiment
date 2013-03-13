@@ -2,7 +2,7 @@ package com.loki2302.evaluation.operations;
 
 import java.util.List;
 
-import com.loki2302.expression.BinaryOperationSemantics;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Type;
 
 public class BinaryOperationRepository {
@@ -30,7 +30,7 @@ public class BinaryOperationRepository {
 		return null;
 	}
 
-	public static BinaryOperationDefinitionPredicate semanticsIs(BinaryOperationSemantics semantics) {
+	public static BinaryOperationDefinitionPredicate semanticsIs(BinaryOperationFamily semantics) {
 		return new SemanticsIsPredicate(semantics);
 	}
 	
@@ -47,9 +47,9 @@ public class BinaryOperationRepository {
 	}
 	
 	private static class SemanticsIsPredicate implements BinaryOperationDefinitionPredicate {
-		private final BinaryOperationSemantics semantics;
+		private final BinaryOperationFamily semantics;
 		
-		public SemanticsIsPredicate(BinaryOperationSemantics semantics) {
+		public SemanticsIsPredicate(BinaryOperationFamily semantics) {
 			this.semantics = semantics;
 		}
 		

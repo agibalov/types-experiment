@@ -1,6 +1,6 @@
-package com.loki2302.dom;
+package com.loki2302.expression;
 
-public enum DOMBinaryExpressionType {
+public enum BinaryOperationFamily {
 	Add,
 	Sub,
 	Mul,

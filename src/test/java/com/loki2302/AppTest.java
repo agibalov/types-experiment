@@ -5,13 +5,13 @@ import org.junit.Test;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.loki2302.dom.DOMBinaryExpression;
-import com.loki2302.dom.DOMBinaryExpressionType;
 import com.loki2302.dom.DOMExpression;
 import com.loki2302.dom.DOMLiteralExpression;
 import com.loki2302.dom.DOMLiteralType;
 import com.loki2302.evaluation.DOMExpressionEvaluator;
 import com.loki2302.evaluation.ExpressionResult;
 import com.loki2302.expression.BinaryExpression;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.BinaryOperationType;
 import com.loki2302.expression.CastExpression;
 import com.loki2302.expression.DoubleLiteralExpression;
@@ -80,7 +80,7 @@ public class AppTest {
 	}
 	
 	private static DOMExpression add(DOMExpression left, DOMExpression right) {
-		return new DOMBinaryExpression(DOMBinaryExpressionType.Add, left, right);
+		return new DOMBinaryExpression(BinaryOperationFamily.Add, left, right);
 	}
 	
 	private static DOMExpression i(String stringValue) {

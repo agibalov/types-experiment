@@ -1,22 +1,24 @@
 package com.loki2302.dom;
 
+import com.loki2302.expression.BinaryOperationFamily;
+
 public class DOMBinaryExpression implements DOMExpression {
-	private final DOMBinaryExpressionType expressionType;
+	private final BinaryOperationFamily binaryOperationFamily;
 	private final DOMExpression leftExpression;
 	private final DOMExpression rightExpression;
 	
 	public DOMBinaryExpression(
-			DOMBinaryExpressionType expressionType, 
+			BinaryOperationFamily binaryOperationFamily, 
 			DOMExpression leftExpression, 
 			DOMExpression rightExpression) {
 		
-		this.expressionType = expressionType;
+		this.binaryOperationFamily = binaryOperationFamily;
 		this.leftExpression = leftExpression;
 		this.rightExpression = rightExpression;
 	}
 	
-	public DOMBinaryExpressionType getExpressionType() {
-		return expressionType;
+	public BinaryOperationFamily getBinaryOperationFamily() {
+		return binaryOperationFamily;
 	}
 	
 	public DOMExpression getLeftExpression() {
