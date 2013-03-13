@@ -13,7 +13,7 @@ public class ExactMatcher implements BinaryOperationMatcher {
 	@Inject BinaryOperationRepository binaryOperationRepository;
 	
 	public ExpressionResult match(
-			BinaryOperationFamily semantics,
+			BinaryOperationFamily family,
 			Expression leftExpression, 
 			Expression rightExpression) {
 		
@@ -22,7 +22,7 @@ public class ExactMatcher implements BinaryOperationMatcher {
 				
 		BinaryOperationDefinition binaryOperationDefinition =
 				binaryOperationRepository.firstWhere(
-						semanticsIs(semantics), 
+						familyIs(family), 
 						leftTypeIs(leftType), 
 						rightTypeIs(rightType));
 		

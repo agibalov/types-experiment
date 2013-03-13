@@ -16,13 +16,14 @@ public class ImplicitRightBinaryOperationMatcher implements BinaryOperationMatch
 	@Inject CastOperationRepository castOperationRepository;
 
 	public ExpressionResult match(			
-			BinaryOperationFamily semantics,
+			BinaryOperationFamily family,
 			Expression leftExpression, 
 			Expression rightExpression) {
+		
 		Type leftType = leftExpression.getResultType();		
 		BinaryOperationDefinition binaryOperationDefinition = 
 				binaryOperationRepository.firstWhere(
-						semanticsIs(semantics),
+						familyIs(family),
 						leftTypeIs(leftType));
 		
 		if(binaryOperationDefinition != null) {

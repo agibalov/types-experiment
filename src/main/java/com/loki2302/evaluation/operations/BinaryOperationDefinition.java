@@ -7,28 +7,28 @@ import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
 public class BinaryOperationDefinition {
-	private final BinaryOperationFamily semantics;
+	private final BinaryOperationFamily binaryOperationFamily;
 	private final BinaryOperationType operationType;
 	private final Type leftType;
 	private final Type rightType;	
 	private final Type resultType;
 	
 	public BinaryOperationDefinition(
-			BinaryOperationFamily semantics,
+			BinaryOperationFamily binaryOperationFamily,
 			BinaryOperationType operationType,
 			Type leftType,
 			Type rightType,			
 			Type resultType) {
 		
-		this.semantics = semantics;
+		this.binaryOperationFamily = binaryOperationFamily;
 		this.operationType = operationType;
 		this.leftType = leftType;
 		this.rightType = rightType;		
 		this.resultType = resultType;
 	}
 	
-	public BinaryOperationFamily getSemantics() {
-		return semantics;
+	public BinaryOperationFamily getBinaryOperationFamily() {
+		return binaryOperationFamily;
 	}
 	
 	public BinaryOperationType getOperationType() {

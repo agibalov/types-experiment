@@ -6,7 +6,7 @@ import com.loki2302.expression.Expression;
 
 public interface BinaryOperationMatcher {
 	ExpressionResult match(
-			BinaryOperationFamily semantics,
+			BinaryOperationFamily family,
 			Expression leftExpression, 
 			Expression rightExpression);
 }

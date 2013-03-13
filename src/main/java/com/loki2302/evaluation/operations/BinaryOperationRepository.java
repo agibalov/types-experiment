@@ -30,8 +30,8 @@ public class BinaryOperationRepository {
 		return null;
 	}
 
-	public static BinaryOperationDefinitionPredicate semanticsIs(BinaryOperationFamily semantics) {
-		return new SemanticsIsPredicate(semantics);
+	public static BinaryOperationDefinitionPredicate familyIs(BinaryOperationFamily family) {
+		return new FamilyIsPredicate(family);
 	}
 	
 	public static BinaryOperationDefinitionPredicate leftTypeIs(Type leftType) {
@@ -46,16 +46,16 @@ public class BinaryOperationRepository {
 		boolean match(BinaryOperationDefinition item);
 	}
 	
-	private static class SemanticsIsPredicate implements BinaryOperationDefinitionPredicate {
-		private final BinaryOperationFamily semantics;
+	private static class FamilyIsPredicate implements BinaryOperationDefinitionPredicate {
+		private final BinaryOperationFamily family;
 		
-		public SemanticsIsPredicate(BinaryOperationFamily semantics) {
-			this.semantics = semantics;
+		public FamilyIsPredicate(BinaryOperationFamily family) {
+			this.family = family;
 		}
 		
 		@Override
 		public boolean match(BinaryOperationDefinition item) {
-			return item.getSemantics() == semantics;
+			return item.getBinaryOperationFamily() == family;
 		}		
 	}
 	
