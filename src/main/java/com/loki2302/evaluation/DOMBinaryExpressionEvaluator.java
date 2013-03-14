@@ -1,43 +1,91 @@
 package com.loki2302.evaluation;
 
+import static com.loki2302.evaluation.operations.BinaryOperationRepository.familyIs;
+import static com.loki2302.evaluation.operations.BinaryOperationRepository.leftTypeIs;
+import static com.loki2302.evaluation.operations.BinaryOperationRepository.rightTypeIs;
+
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.loki2302.dom.DOMBinaryExpression;
-import com.loki2302.expression.BinaryOperationFamily;
+import com.loki2302.evaluation.operations.BinaryOperationDefinition;
+import com.loki2302.evaluation.operations.BinaryOperationRepository;
+import com.loki2302.evaluation.operations.CastOperationDefinition;
+import com.loki2302.evaluation.operations.CastOperationRepository;
+import com.loki2302.expression.Expression;
+import com.loki2302.expression.Type;
 
 public class DOMBinaryExpressionEvaluator {	
-	@Inject @Named("addExpressionEvaluator") DOMMatchingBinaryExpressionEvaluator addExpressionEvaluator;
+	@Inject CastOperationRepository castOperationRepository;
+	@Inject BinaryOperationRepository binaryOperationRepository;
 		
 	public ExpressionResult evaluateDOMBinaryExpression(
 			DOMBinaryExpression expression, 
 			DOMExpressionEvaluator domExpressionEvaluator) {
 		
-		BinaryOperationFamily expressionType = expression.getBinaryOperationFamily();
-		if(expressionType == BinaryOperationFamily.Add) {
-			return addExpressionEvaluator.evaluateBinaryExpression(
-					expression.getLeftExpression(),
-					expression.getRightExpression(),
-					domExpressionEvaluator);
-		} else if(expressionType == BinaryOperationFamily.Sub) {
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.Mul) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.Div) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.Less) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.LessOrEqual) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.Greater) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.GreaterOrEqual) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.Equal) {			
-			throw new RuntimeException();
-		} else if(expressionType == BinaryOperationFamily.NotEqual) {			
-			throw new RuntimeException();
+		ExpressionResult leftResult = domExpressionEvaluator.evaluateDOMExpression(expression.getLeftExpression());
+		ExpressionResult rightResult = domExpressionEvaluator.evaluateDOMExpression(expression.getRightExpression());
+		if(!leftResult.isOk() || !rightResult.isOk()) {
+			return ExpressionResult.fail();
+		}			
+		
+		Expression leftExpression = leftResult.getExpression();
+		Expression rightExpression = rightResult.getExpression();
+		
+		Type leftType = leftExpression.getResultType();
+		Type rightType = rightExpression.getResultType();					
+				
+		// try exact match
+		BinaryOperationDefinition binaryOperationDefinition =
+				binaryOperationRepository.firstWhere(
+						familyIs(expression.getBinaryOperationFamily()), 
+						leftTypeIs(leftType), 
+						rightTypeIs(rightType));
+		
+		if(binaryOperationDefinition != null) {
+			return ExpressionResult.ok(binaryOperationDefinition.makeExpression(
+					leftExpression,
+					rightExpression));
 		}
 		
-		throw new RuntimeException();
+		// try right cast
+		binaryOperationDefinition = 
+				binaryOperationRepository.firstWhere(
+						familyIs(expression.getBinaryOperationFamily()),
+						leftTypeIs(leftType));
+		
+		if(binaryOperationDefinition != null) {
+			Type requiredRightType = binaryOperationDefinition.getRightType();			
+			CastOperationDefinition castOperationDefinition = 
+					castOperationRepository.findImplicitBySourceAndDestinationTypes(
+							rightType, 
+							requiredRightType);
+			
+			if(castOperationDefinition != null) {
+				return ExpressionResult.ok(binaryOperationDefinition.makeExpression(						
+						leftExpression,
+						castOperationDefinition.makeExpression(rightExpression)));
+			}
+		}
+		
+		// try left cast
+		binaryOperationDefinition = 
+				binaryOperationRepository.firstWhere(
+						familyIs(expression.getBinaryOperationFamily()), 
+						rightTypeIs(rightType));
+		
+		if(binaryOperationDefinition != null) {
+			Type requiredLeftType = binaryOperationDefinition.getLeftType();
+			CastOperationDefinition castOperationDefinition = 
+					castOperationRepository.findImplicitBySourceAndDestinationTypes(
+							leftType, 
+							requiredLeftType);
+			
+			if(castOperationDefinition != null) {
+				return ExpressionResult.ok(binaryOperationDefinition.makeExpression(
+						castOperationDefinition.makeExpression(leftExpression),
+						rightExpression));
+			}
+		}
+		
+		return ExpressionResult.fail();
 	}
 }

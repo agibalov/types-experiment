@@ -5,13 +5,6 @@ import java.util.List;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.name.Named;
-import com.loki2302.evaluation.DOMMatchingBinaryExpressionEvaluator;
-import com.loki2302.evaluation.matcher.AlternativeBinaryOperationMatcher;
-import com.loki2302.evaluation.matcher.BinaryOperationMatcher;
-import com.loki2302.evaluation.matcher.ExactMatcher;
-import com.loki2302.evaluation.matcher.ImplicitLeftBinaryOperationMatcher;
-import com.loki2302.evaluation.matcher.ImplicitRightBinaryOperationMatcher;
 import com.loki2302.evaluation.operations.BinaryOperationDefinition;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.evaluation.operations.CastOperationDefinition;
@@ -54,28 +47,7 @@ public class OperationsModule extends AbstractModule {
 		definitions.add(new BinaryOperationDefinition(BinaryOperationFamily.And, BinaryOperationType.BoolAnd, Type.Bool, Type.Bool, Type.Bool));
 		definitions.add(new BinaryOperationDefinition(BinaryOperationFamily.Or, BinaryOperationType.BoolOr, Type.Bool, Type.Bool, Type.Bool));
 		return new BinaryOperationRepository(definitions);
-	}
-	
-	@Provides
-	@Named("addOperationMatcher")
-	BinaryOperationMatcher provideAddOperationMatcher(
-			ExactMatcher exactMatcher, 
-			ImplicitRightBinaryOperationMatcher implicitRightMatcher,
-			ImplicitLeftBinaryOperationMatcher implicitLeftMatcher) {
-		return new AlternativeBinaryOperationMatcher(
-				exactMatcher, 
-				implicitRightMatcher, 
-				implicitLeftMatcher);
-	}
-	
-	@Provides
-	@Named("addExpressionEvaluator")
-	DOMMatchingBinaryExpressionEvaluator provideAddExpressionEvaluator(
-			@Named("addOperationMatcher") BinaryOperationMatcher operationMatcher) {
-		return new DOMMatchingBinaryExpressionEvaluator(
-				BinaryOperationFamily.Add,
-				operationMatcher);
-	}
+	}	
 	
 	@Provides
 	CastOperationRepository provideCastOperationRepository() {

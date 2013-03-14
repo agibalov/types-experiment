@@ -7,21 +7,21 @@ import com.loki2302.dom.DOMExpressionVisitor;
 import com.loki2302.dom.DOMLiteralExpression;
 
 public class DOMExpressionEvaluator {	
-	@Inject DOMLiteralExpressionEvaluator domLiteralExpressionEvaluator;
-	@Inject DOMBinaryExpressionEvaluator domAddExpressionEvaluator;
+	@Inject DOMLiteralExpressionEvaluator literalExpressionEvaluator;
+	@Inject DOMBinaryExpressionEvaluator binaryExpressionEvaluator;
 	
 	public ExpressionResult evaluateDOMExpression(DOMExpression domExpression) {
 		return domExpression.accept(new DOMExpressionVisitor<ExpressionResult>() {
 			@Override
 			public ExpressionResult visitDOMBinaryExpression(DOMBinaryExpression expression) {
-				return domAddExpressionEvaluator.evaluateDOMBinaryExpression(
+				return binaryExpressionEvaluator.evaluateDOMBinaryExpression(
 						expression,
 						DOMExpressionEvaluator.this);
 			}
 
 			@Override
 			public ExpressionResult visitDOMLiteralExpression(DOMLiteralExpression expression) {
-				return domLiteralExpressionEvaluator.evaluateDOMLiteralExpression(expression);
+				return literalExpressionEvaluator.evaluateDOMLiteralExpression(expression);
 			}			
 		});
 	}
