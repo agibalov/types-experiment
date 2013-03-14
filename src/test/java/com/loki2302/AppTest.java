@@ -22,13 +22,13 @@ import static org.junit.Assert.*;
 
 public class AppTest {
 	@Test
-	public void intLiteralTest() {		
-		assertEquals(IntLiteralExpression.class, expression(i("123")).getClass());
+	public void intLiteralTest() {
+		assertIntLiteralExpression(expression(i("123")));
 	}	
 	
 	@Test
 	public void doubleLiteralTest() {		
-		assertEquals(DoubleLiteralExpression.class, expression(d("3.14")).getClass());
+		assertDoubleLiteralExpression(expression(d("3.14")));
 	}
 	
 	@Test
@@ -36,8 +36,8 @@ public class AppTest {
 		Expression e = expression(add(i("1"), i("2")));
 		assertEquals(BinaryExpression.class, e.getClass());
 		BinaryExpression binaryExpression = (BinaryExpression)e;	
-		assertEquals(binaryExpression.getLeftExpression().getClass(), IntLiteralExpression.class);
-		assertEquals(binaryExpression.getRightExpression().getClass(), IntLiteralExpression.class);
+		assertIntLiteralExpression(binaryExpression.getLeftExpression());
+		assertIntLiteralExpression(binaryExpression.getRightExpression());
 	}
 	
 	@Test
@@ -45,8 +45,8 @@ public class AppTest {
 		Expression e = expression(add(d("3.14"), d("2.78")));
 		assertEquals(BinaryExpression.class, e.getClass());
 		BinaryExpression binaryExpression = (BinaryExpression)e;
-		assertEquals(binaryExpression.getLeftExpression().getClass(), DoubleLiteralExpression.class);
-		assertEquals(binaryExpression.getRightExpression().getClass(), DoubleLiteralExpression.class);
+		assertDoubleLiteralExpression(binaryExpression.getLeftExpression());
+		assertDoubleLiteralExpression(binaryExpression.getRightExpression());
 	}
 	
 	@Test
@@ -55,10 +55,10 @@ public class AppTest {
 		assertEquals(BinaryExpression.class, e.getClass());
 		BinaryExpression binaryExpression = (BinaryExpression)e;		
 		assertEquals(BinaryOperationType.DoubleAdd, binaryExpression.getOperationType());		
-		assertEquals(binaryExpression.getLeftExpression().getClass(), DoubleLiteralExpression.class);
+		assertDoubleLiteralExpression(binaryExpression.getLeftExpression());
 		assertEquals(binaryExpression.getRightExpression().getClass(), CastExpression.class);
 		CastExpression castExpression = (CastExpression)binaryExpression.getRightExpression();
-		assertEquals(castExpression.getInnerExpression().getClass(), IntLiteralExpression.class);
+		assertIntLiteralExpression(castExpression.getInnerExpression());
 	}
 	
 	@Test
@@ -68,8 +68,8 @@ public class AppTest {
 		BinaryExpression binaryExpression = (BinaryExpression)e;
 		assertEquals(binaryExpression.getLeftExpression().getClass(), CastExpression.class);
 		CastExpression castExpression = (CastExpression)binaryExpression.getLeftExpression();
-		assertEquals(castExpression.getInnerExpression().getClass(), IntLiteralExpression.class);
-		assertEquals(binaryExpression.getRightExpression().getClass(), DoubleLiteralExpression.class);		
+		assertIntLiteralExpression(castExpression.getInnerExpression());
+		assertDoubleLiteralExpression(binaryExpression.getRightExpression());		
 	}
 		
 	private static Expression expression(DOMExpression domExpression) {
@@ -77,6 +77,14 @@ public class AppTest {
 		DOMExpressionEvaluator domExpressionEvaluator = injector.getInstance(DOMExpressionEvaluator.class);
 		ExpressionResult result = domExpressionEvaluator.evaluateDOMExpression(domExpression);
 		return result.getExpression();
+	}
+	
+	private static void assertIntLiteralExpression(Expression e) {
+		assertEquals(e.getClass(), IntLiteralExpression.class);
+	}
+	
+	private static void assertDoubleLiteralExpression(Expression e) {
+		assertEquals(e.getClass(), DoubleLiteralExpression.class);
 	}
 	
 	private static DOMExpression add(DOMExpression left, DOMExpression right) {
