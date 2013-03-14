@@ -1,8 +1,7 @@
 package com.loki2302.evaluation;
 
-import static com.loki2302.evaluation.operations.BinaryOperationRepository.familyIs;
-import static com.loki2302.evaluation.operations.BinaryOperationRepository.leftTypeIs;
-import static com.loki2302.evaluation.operations.BinaryOperationRepository.rightTypeIs;
+import static com.loki2302.evaluation.operations.BinaryOperationRepository.*;
+import static com.loki2302.evaluation.operations.CastOperationRepository.*;
 
 import com.google.inject.Inject;
 import com.loki2302.dom.DOMBinaryExpression;
@@ -55,9 +54,10 @@ public class DOMBinaryExpressionEvaluator {
 		if(binaryOperationDefinition != null) {
 			Type requiredRightType = binaryOperationDefinition.getRightType();			
 			CastOperationDefinition castOperationDefinition = 
-					castOperationRepository.findImplicitBySourceAndDestinationTypes(
-							rightType, 
-							requiredRightType);
+					castOperationRepository.firstWhere(
+							isImplicit(),
+							sourceTypeIs(rightType),
+							destinationTypeIs(requiredRightType));
 			
 			if(castOperationDefinition != null) {
 				return ExpressionResult.ok(binaryOperationDefinition.makeExpression(						
@@ -75,9 +75,10 @@ public class DOMBinaryExpressionEvaluator {
 		if(binaryOperationDefinition != null) {
 			Type requiredLeftType = binaryOperationDefinition.getLeftType();
 			CastOperationDefinition castOperationDefinition = 
-					castOperationRepository.findImplicitBySourceAndDestinationTypes(
-							leftType, 
-							requiredLeftType);
+					castOperationRepository.firstWhere(
+							isImplicit(),
+							sourceTypeIs(leftType), 
+							destinationTypeIs(requiredLeftType));
 			
 			if(castOperationDefinition != null) {
 				return ExpressionResult.ok(binaryOperationDefinition.makeExpression(

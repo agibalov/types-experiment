@@ -51,6 +51,8 @@ public class OperationsModule extends AbstractModule {
 	
 	@Provides
 	CastOperationRepository provideCastOperationRepository() {
-		return new CastOperationRepository(new CastOperationDefinition(Type.Int, Type.Double, true, CastOperationType.IntToDouble));
+		List<CastOperationDefinition> definitions = new ArrayList<CastOperationDefinition>();
+		definitions.add(new CastOperationDefinition(Type.Int, Type.Double, true, CastOperationType.IntToDouble));		
+		return new CastOperationRepository(definitions);
 	}
 }
