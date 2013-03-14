@@ -9,19 +9,19 @@ import com.loki2302.expression.IntLiteralExpression;
 public class DOMLiteralExpressionEvaluator {
 	public ExpressionResult evaluateDOMLiteralExpression(DOMLiteralExpression expression) {
 		DOMLiteralType literalType = expression.getLiteralType();
+		String stringValue = expression.getStringValue();
 		if(literalType == DOMLiteralType.Int) {
-			return evaluateDOMIntLiteralExpression(expression);
+			return evaluateDOMIntLiteralExpression(stringValue);
 		} else if(literalType == DOMLiteralType.Double) {
-			return evaluateDOMDoubleLiteralExpression(expression);
+			return evaluateDOMDoubleLiteralExpression(stringValue);
 		} else if(literalType == DOMLiteralType.Bool) {
-			return evaluateDOMBoolLiteralExpression(expression);
+			return evaluateDOMBoolLiteralExpression(stringValue);
 		}
 		
 		throw new RuntimeException();
 	}
 	
-	private ExpressionResult evaluateDOMIntLiteralExpression(DOMLiteralExpression expression) {
-		String stringValue = expression.getStringValue();
+	private ExpressionResult evaluateDOMIntLiteralExpression(String stringValue) {
 		try {
 			int value = Integer.parseInt(stringValue);
 			return ExpressionResult.ok(new IntLiteralExpression(value));
@@ -30,8 +30,7 @@ public class DOMLiteralExpressionEvaluator {
 		return ExpressionResult.fail();
 	}
 	
-	private ExpressionResult evaluateDOMDoubleLiteralExpression(DOMLiteralExpression expression) {
-		String stringValue = expression.getStringValue();
+	private ExpressionResult evaluateDOMDoubleLiteralExpression(String stringValue) {
 		try {
 			double value = Double.parseDouble(stringValue);
 			return ExpressionResult.ok(new DoubleLiteralExpression(value));
@@ -40,8 +39,7 @@ public class DOMLiteralExpressionEvaluator {
 		return ExpressionResult.fail();
 	}
 	
-	private ExpressionResult evaluateDOMBoolLiteralExpression(DOMLiteralExpression expression) {
-		String stringValue = expression.getStringValue();
+	private ExpressionResult evaluateDOMBoolLiteralExpression(String stringValue) {
 		try {
 			boolean value = Boolean.parseBoolean(stringValue);
 			return ExpressionResult.ok(new BoolLiteralExpression(value));
