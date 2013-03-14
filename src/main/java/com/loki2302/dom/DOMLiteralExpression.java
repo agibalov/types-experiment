@@ -22,4 +22,9 @@ public class DOMLiteralExpression implements DOMExpression {
 	public <T> T accept(DOMExpressionVisitor<T> visitor) {
 		return visitor.visitDOMLiteralExpression(this);
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s[%s]", stringValue, literalType);
+	}
 }

@@ -10,21 +10,7 @@ import com.loki2302.evaluation.DOMExpressionEvaluator;
 import com.loki2302.evaluation.ExpressionResult;
 import com.loki2302.expression.BinaryOperationFamily;
 
-public class App {	
-	
-	// add: IntAdd, DoubleAdd
-	// sub: IntSub, DoubleSub
-	// mul: IntMul, DoubleMul
-	// div: IntDiv, DoubleDiv
-	// greater: IntGreater, DoubleGreater
-	// greater-equal: IntGreaterOrEqual, DoubleGreaterOrEqual
-	// less: IntLess, DoubleLess
-	// less-equal: IntLessOrEqual, DoubleLessOrEqual
-	// equal: IntEqual, DoubleEqual, BoolEqual
-	// not-equal: IntNotEqual, DoubleNotEqual, BoolNotEqual
-	
-	// implicit-cast: int->double
-	
+public class App {
 	public static void main(String[] args) {		
 		DOMExpression domExpression = new DOMBinaryExpression(
 				BinaryOperationFamily.Add,

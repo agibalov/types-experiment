@@ -2,6 +2,7 @@ package com.loki2302.evaluation;
 
 import com.loki2302.dom.DOMLiteralExpression;
 import com.loki2302.dom.DOMLiteralType;
+import com.loki2302.expression.BoolLiteralExpression;
 import com.loki2302.expression.DoubleLiteralExpression;
 import com.loki2302.expression.IntLiteralExpression;
 
@@ -12,6 +13,8 @@ public class DOMLiteralExpressionEvaluator {
 			return evaluateDOMIntLiteralExpression(expression);
 		} else if(literalType == DOMLiteralType.Double) {
 			return evaluateDOMDoubleLiteralExpression(expression);
+		} else if(literalType == DOMLiteralType.Bool) {
+			return evaluateDOMBoolLiteralExpression(expression);
 		}
 		
 		throw new RuntimeException();
@@ -32,6 +35,16 @@ public class DOMLiteralExpressionEvaluator {
 		try {
 			double value = Double.parseDouble(stringValue);
 			return ExpressionResult.ok(new DoubleLiteralExpression(value));
+		} catch(NumberFormatException e) {}
+		
+		return ExpressionResult.fail();
+	}
+	
+	private ExpressionResult evaluateDOMBoolLiteralExpression(DOMLiteralExpression expression) {
+		String stringValue = expression.getStringValue();
+		try {
+			boolean value = Boolean.parseBoolean(stringValue);
+			return ExpressionResult.ok(new BoolLiteralExpression(value));
 		} catch(NumberFormatException e) {}
 		
 		return ExpressionResult.fail();
