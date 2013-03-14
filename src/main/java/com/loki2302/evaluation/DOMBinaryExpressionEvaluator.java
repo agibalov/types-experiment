@@ -9,6 +9,7 @@ import com.loki2302.evaluation.operations.BinaryOperationDefinition;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.evaluation.operations.CastOperationDefinition;
 import com.loki2302.evaluation.operations.CastOperationRepository;
+import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
@@ -28,65 +29,124 @@ public class DOMBinaryExpressionEvaluator {
 		
 		Expression leftExpression = leftResult.getExpression();
 		Expression rightExpression = rightResult.getExpression();
+		BinaryOperationFamily binaryOperationFamily = expression.getBinaryOperationFamily();
 		
-		Type leftType = leftExpression.getResultType();
-		Type rightType = rightExpression.getResultType();					
-				
-		// try exact match
-		BinaryOperationDefinition binaryOperationDefinition =
-				binaryOperationRepository.firstWhere(
-						familyIs(expression.getBinaryOperationFamily()), 
-						leftTypeIs(leftType), 
-						rightTypeIs(rightType));
+		ExpressionResult expressionResult;
 		
-		if(binaryOperationDefinition != null) {
-			return ExpressionResult.ok(binaryOperationDefinition.makeExpression(
-					leftExpression,
-					rightExpression));
+		expressionResult = tryExactMatch(
+				leftExpression, 
+				rightExpression, 
+				binaryOperationFamily);
+		if(expressionResult.isOk()) {
+			return expressionResult;
 		}
 		
-		// try right cast
-		binaryOperationDefinition = 
-				binaryOperationRepository.firstWhere(
-						familyIs(expression.getBinaryOperationFamily()),
-						leftTypeIs(leftType));
-		
-		if(binaryOperationDefinition != null) {
-			Type requiredRightType = binaryOperationDefinition.getRightType();			
-			CastOperationDefinition castOperationDefinition = 
-					castOperationRepository.firstWhere(
-							isImplicit(),
-							sourceTypeIs(rightType),
-							destinationTypeIs(requiredRightType));
-			
-			if(castOperationDefinition != null) {
-				return ExpressionResult.ok(binaryOperationDefinition.makeExpression(						
-						leftExpression,
-						castOperationDefinition.makeExpression(rightExpression)));
-			}
+		expressionResult = tryImplicitRightMatch(
+				leftExpression, 
+				rightExpression, 
+				binaryOperationFamily);
+		if(expressionResult.isOk()) {
+			return expressionResult;
 		}
 		
-		// try left cast
-		binaryOperationDefinition = 
-				binaryOperationRepository.firstWhere(
-						familyIs(expression.getBinaryOperationFamily()), 
-						rightTypeIs(rightType));
-		
-		if(binaryOperationDefinition != null) {
-			Type requiredLeftType = binaryOperationDefinition.getLeftType();
-			CastOperationDefinition castOperationDefinition = 
-					castOperationRepository.firstWhere(
-							isImplicit(),
-							sourceTypeIs(leftType), 
-							destinationTypeIs(requiredLeftType));
-			
-			if(castOperationDefinition != null) {
-				return ExpressionResult.ok(binaryOperationDefinition.makeExpression(
-						castOperationDefinition.makeExpression(leftExpression),
-						rightExpression));
-			}
+		expressionResult = tryImplicitLeftMatch(
+				leftExpression, 
+				rightExpression, 
+				binaryOperationFamily);
+		if(expressionResult.isOk()) {
+			return expressionResult;
 		}
 		
 		return ExpressionResult.fail();
 	}
+	
+	private ExpressionResult tryExactMatch(
+			Expression leftExpression, 
+			Expression rightExpression, 
+			BinaryOperationFamily binaryOperationFamily) {
+		
+		Type leftType = leftExpression.getResultType();
+		Type rightType = rightExpression.getResultType();					
+				
+		BinaryOperationDefinition binaryOperationDefinition =
+				binaryOperationRepository.firstWhere(
+						familyIs(binaryOperationFamily), 
+						leftTypeIs(leftType), 
+						rightTypeIs(rightType));
+		
+		if(binaryOperationDefinition == null) {
+			return ExpressionResult.fail();
+		}
+		
+		return ExpressionResult.ok(binaryOperationDefinition.makeExpression(
+				leftExpression,
+				rightExpression));
+	}
+	
+	private ExpressionResult tryImplicitRightMatch(
+			Expression leftExpression, 
+			Expression rightExpression, 
+			BinaryOperationFamily binaryOperationFamily) {
+		
+		Type leftType = leftExpression.getResultType();
+		Type rightType = rightExpression.getResultType();
+		
+		BinaryOperationDefinition binaryOperationDefinition = 
+				binaryOperationRepository.firstWhere(
+						familyIs(binaryOperationFamily),
+						leftTypeIs(leftType));
+		
+		if(binaryOperationDefinition == null) {
+			return ExpressionResult.fail();
+		}
+		
+		Type requiredRightType = binaryOperationDefinition.getRightType();			
+		CastOperationDefinition castOperationDefinition = 
+				castOperationRepository.firstWhere(
+						isImplicit(),
+						sourceTypeIs(rightType),
+						destinationTypeIs(requiredRightType));
+			
+		if(castOperationDefinition == null) {
+			return ExpressionResult.fail();
+		}
+		
+		return ExpressionResult.ok(binaryOperationDefinition.makeExpression(						
+				leftExpression,
+				castOperationDefinition.makeExpression(rightExpression)));
+	}
+	
+	private ExpressionResult tryImplicitLeftMatch(
+			Expression leftExpression, 
+			Expression rightExpression, 
+			BinaryOperationFamily binaryOperationFamily) {
+		
+		Type leftType = leftExpression.getResultType();
+		Type rightType = rightExpression.getResultType();
+		
+		BinaryOperationDefinition binaryOperationDefinition = 
+				binaryOperationRepository.firstWhere(
+						familyIs(binaryOperationFamily), 
+						rightTypeIs(rightType));
+		
+		if(binaryOperationDefinition == null) {
+			return ExpressionResult.fail();
+		}
+		
+		Type requiredLeftType = binaryOperationDefinition.getLeftType();
+		CastOperationDefinition castOperationDefinition = 
+				castOperationRepository.firstWhere(
+						isImplicit(),
+						sourceTypeIs(leftType), 
+						destinationTypeIs(requiredLeftType));
+			
+		if(castOperationDefinition == null) {
+			return ExpressionResult.fail();
+		}
+		
+		return ExpressionResult.ok(binaryOperationDefinition.makeExpression(
+				castOperationDefinition.makeExpression(leftExpression),
+				rightExpression));
+	}
+	
 }
