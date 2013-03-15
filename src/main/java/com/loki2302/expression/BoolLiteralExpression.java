@@ -19,4 +19,9 @@ public class BoolLiteralExpression implements Expression {
 	public Type getResultType() {
 		return Type.Bool;
 	}
+
+	@Override
+	public boolean isLvalue() {
+		return false;
+	}
 }

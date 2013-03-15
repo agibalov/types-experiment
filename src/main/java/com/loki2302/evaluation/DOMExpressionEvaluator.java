@@ -11,6 +11,8 @@ import com.loki2302.dom.DOMVariableReferenceExpression;
 public class DOMExpressionEvaluator {	
 	@Inject DOMLiteralExpressionEvaluator literalExpressionEvaluator;
 	@Inject DOMBinaryExpressionEvaluator binaryExpressionEvaluator;
+	@Inject DOMVariableReferenceExpressionEvaluator variableReferenceExpressionEvaluator;
+	@Inject DOMAssignmentExpressionEvaluator assignmentExpressionEvaluator;
 	
 	public ExpressionResult evaluateDOMExpression(DOMExpression domExpression) {
 		return domExpression.accept(new DOMExpressionVisitor<ExpressionResult>() {
@@ -28,12 +30,12 @@ public class DOMExpressionEvaluator {
 
 			@Override
 			public ExpressionResult visitDOMVariableReferenceExpression(DOMVariableReferenceExpression expression) {
-				throw new RuntimeException();
+				return variableReferenceExpressionEvaluator.evaluateDOMVariableReferenceExpression(expression);
 			}
 
 			@Override
 			public ExpressionResult visitDOMAssignmentExpression(DOMAssignmentExpression expression) {
-				throw new RuntimeException();
+				return assignmentExpressionEvaluator.evaluateDOMAssignmentExpression(expression);
 			}			
 		});
 	}

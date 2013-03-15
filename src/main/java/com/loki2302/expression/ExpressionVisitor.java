@@ -6,4 +6,6 @@ public interface ExpressionVisitor<T> {
 	T visitBoolLiteralExpression(BoolLiteralExpression expression);
 	T visitCastExpression(CastExpression expression);
 	T visitBinaryExpression(BinaryExpression expression);
+	T visitVariableReferenceExpression(VariableReferenceExpression expression);
+	T visitAssignmentExpression(AssignmentExpression expression);
 }
