@@ -5,7 +5,7 @@ import java.util.List;
 import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Type;
 
-public class BinaryOperationRepository extends OperationRepository<BinaryOperationDefinition> {		
+public class BinaryOperationRepository extends OperationRepository<BinaryOperationDefinition> {
 	public BinaryOperationRepository(List<BinaryOperationDefinition> definitions) {
 		super(definitions);
 	}

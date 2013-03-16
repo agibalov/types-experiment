@@ -35,7 +35,9 @@ public class DOMExpressionEvaluator {
 
 			@Override
 			public ExpressionResult visitDOMAssignmentExpression(DOMAssignmentExpression expression) {
-				return assignmentExpressionEvaluator.evaluateDOMAssignmentExpression(expression);
+				return assignmentExpressionEvaluator.evaluateDOMAssignmentExpression(
+						expression,
+						DOMExpressionEvaluator.this);
 			}			
 		});
 	}

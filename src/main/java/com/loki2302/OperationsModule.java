@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.loki2302.evaluation.operations.AssignmentOperationDefinition;
+import com.loki2302.evaluation.operations.AssignmentOperationRepository;
+import com.loki2302.evaluation.operations.AssignmentOperationType;
 import com.loki2302.evaluation.operations.BinaryOperationDefinition;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.evaluation.operations.CastOperationDefinition;
@@ -54,5 +57,14 @@ public class OperationsModule extends AbstractModule {
 		List<CastOperationDefinition> definitions = new ArrayList<CastOperationDefinition>();
 		definitions.add(new CastOperationDefinition(Type.Int, Type.Double, true, CastOperationType.IntToDouble));		
 		return new CastOperationRepository(definitions);
+	}
+	
+	@Provides
+	AssignmentOperationRepository provideAssignmentOperationRepository() {
+		List<AssignmentOperationDefinition> definitions = new ArrayList<AssignmentOperationDefinition>();
+		definitions.add(new AssignmentOperationDefinition(AssignmentOperationType.AssignToIntVariable, Type.Int, Type.Int, Type.Int));
+		definitions.add(new AssignmentOperationDefinition(AssignmentOperationType.AssignToDoubleVariable, Type.Double, Type.Double, Type.Double));
+		definitions.add(new AssignmentOperationDefinition(AssignmentOperationType.AssignToBoolVariable, Type.Bool, Type.Bool, Type.Bool));
+		return new AssignmentOperationRepository(definitions);
 	}
 }
