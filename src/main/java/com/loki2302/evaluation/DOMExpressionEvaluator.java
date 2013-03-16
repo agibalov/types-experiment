@@ -1,6 +1,7 @@
 package com.loki2302.evaluation;
 
 import com.google.inject.Inject;
+import com.loki2302.dom.DOMArrayItemReferenceExpression;
 import com.loki2302.dom.DOMAssignmentExpression;
 import com.loki2302.dom.DOMBinaryExpression;
 import com.loki2302.dom.DOMExpression;
@@ -32,13 +33,18 @@ public class DOMExpressionEvaluator {
 			public ExpressionResult visitDOMVariableReferenceExpression(DOMVariableReferenceExpression expression) {
 				return variableReferenceExpressionEvaluator.evaluateDOMVariableReferenceExpression(expression);
 			}
+			
+			@Override
+			public ExpressionResult visitDOMArrayItemReferenceExpression(DOMArrayItemReferenceExpression expression) {
+				throw new RuntimeException();
+			}
 
 			@Override
 			public ExpressionResult visitDOMAssignmentExpression(DOMAssignmentExpression expression) {
 				return assignmentExpressionEvaluator.evaluateDOMAssignmentExpression(
 						expression,
 						DOMExpressionEvaluator.this);
-			}			
+			}						
 		});
 	}
 }

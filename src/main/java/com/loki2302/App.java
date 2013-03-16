@@ -10,11 +10,7 @@ import com.loki2302.evaluation.DOMExpressionEvaluator;
 import com.loki2302.evaluation.ExpressionResult;
 import com.loki2302.expression.BinaryOperationFamily;
 
-public class App {
-	
-	// TODO: need to somehow distinguish lvalues and rvalues
-	// TODO: need to add operations like assign-variable, assign-array-element
-	
+public class App {	
 	public static void main(String[] args) {		
 		DOMExpression domExpression = new DOMBinaryExpression(
 				BinaryOperationFamily.Add,
