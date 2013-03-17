@@ -1,5 +1,6 @@
 package com.loki2302.expression;
 
+// TODO: replace/extends with SetVariableExpression/GetVariableExpression
 public class VariableReferenceExpression implements Expression {
 	private final Type variableType;
 	
