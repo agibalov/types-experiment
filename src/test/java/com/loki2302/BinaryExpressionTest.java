@@ -157,6 +157,27 @@ public class BinaryExpressionTest extends AbstractTypeSystemTest {
 		parameters.add(new Object[] { BoolLiteral(), DoubleLiteral(), BinaryOperationFamily.Equal, fail() });
 		parameters.add(new Object[] { BoolLiteral(), DoubleLiteral(), BinaryOperationFamily.LessOrEqual, fail() });	
 		
+		parameters.add(new Object[] { IntVar(), IntLiteral(), BinaryOperationFamily.Assignment, ok(Type.Int) });
+        parameters.add(new Object[] { IntVar(), DoubleLiteral(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { IntVar(), BoolLiteral(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { IntVar(), IntVar(), BinaryOperationFamily.Assignment, ok(Type.Int) });
+        parameters.add(new Object[] { IntVar(), DoubleVar(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { IntVar(), BoolVar(), BinaryOperationFamily.Assignment, fail() });
+        
+        parameters.add(new Object[] { DoubleVar(), DoubleLiteral(), BinaryOperationFamily.Assignment, ok(Type.Double) });
+        parameters.add(new Object[] { DoubleVar(), IntLiteral(), BinaryOperationFamily.Assignment, ok(Type.Double) });
+        parameters.add(new Object[] { DoubleVar(), BoolLiteral(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { DoubleVar(), DoubleVar(), BinaryOperationFamily.Assignment, ok(Type.Double) });
+        parameters.add(new Object[] { DoubleVar(), IntVar(), BinaryOperationFamily.Assignment, ok(Type.Double) });        
+        parameters.add(new Object[] { DoubleVar(), BoolVar(), BinaryOperationFamily.Assignment, fail() });
+        
+        parameters.add(new Object[] { BoolVar(), BoolLiteral(), BinaryOperationFamily.Assignment, ok(Type.Bool) });
+        parameters.add(new Object[] { BoolVar(), IntLiteral(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { BoolVar(), DoubleLiteral(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { BoolVar(), BoolVar(), BinaryOperationFamily.Assignment, ok(Type.Bool) });
+        parameters.add(new Object[] { BoolVar(), IntVar(), BinaryOperationFamily.Assignment, fail() });
+        parameters.add(new Object[] { BoolVar(), DoubleVar(), BinaryOperationFamily.Assignment, fail() });
+		
 		return parameters;
 	}
 	

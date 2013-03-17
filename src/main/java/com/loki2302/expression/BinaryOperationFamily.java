@@ -12,5 +12,6 @@ public enum BinaryOperationFamily {
 	Equal,
 	NotEqual,
 	And,
-	Or
+	Or,
+	Assignment
 }

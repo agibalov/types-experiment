@@ -24,5 +24,8 @@ public enum BinaryOperationType {
 	DoubleNotEqual,
 	BoolNotEqual,
 	BoolAnd,
-	BoolOr	
+	BoolOr,
+	AssignToIntVariable,
+    AssignToDoubleVariable,
+    AssignToBoolVariable
 }

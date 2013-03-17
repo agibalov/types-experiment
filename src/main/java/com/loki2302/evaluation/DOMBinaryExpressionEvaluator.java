@@ -33,28 +33,50 @@ public class DOMBinaryExpressionEvaluator {
 		
 		ExpressionResult expressionResult;
 		
-		expressionResult = tryExactMatch(
-				leftExpression, 
-				rightExpression, 
-				binaryOperationFamily);
-		if(expressionResult.isOk()) {
-			return expressionResult;
-		}
-		
-		expressionResult = tryImplicitRightMatch(
-				leftExpression, 
-				rightExpression, 
-				binaryOperationFamily);
-		if(expressionResult.isOk()) {
-			return expressionResult;
-		}
-		
-		expressionResult = tryImplicitLeftMatch(
-				leftExpression, 
-				rightExpression, 
-				binaryOperationFamily);
-		if(expressionResult.isOk()) {
-			return expressionResult;
+		if(binaryOperationFamily == BinaryOperationFamily.Assignment) {
+		    if(!leftExpression.isLvalue()) {
+		        return ExpressionResult.fail();
+		    }
+		    
+		    expressionResult = tryExactMatch(
+		            leftExpression, 
+		            rightExpression,
+		            binaryOperationFamily);
+	        if(expressionResult.isOk()) {
+	            return expressionResult;
+	        }
+	        
+	        expressionResult = tryImplicitRightMatch(
+	                leftExpression, 
+	                rightExpression,
+	                binaryOperationFamily);
+	        if(expressionResult.isOk()) {
+	            return expressionResult;
+	        }
+		} else {
+    		expressionResult = tryExactMatch(
+    				leftExpression, 
+    				rightExpression, 
+    				binaryOperationFamily);
+    		if(expressionResult.isOk()) {
+    			return expressionResult;
+    		}
+    		
+    		expressionResult = tryImplicitRightMatch(
+    				leftExpression, 
+    				rightExpression, 
+    				binaryOperationFamily);
+    		if(expressionResult.isOk()) {
+    			return expressionResult;
+    		}
+    		
+    		expressionResult = tryImplicitLeftMatch(
+    				leftExpression, 
+    				rightExpression, 
+    				binaryOperationFamily);
+    		if(expressionResult.isOk()) {
+    			return expressionResult;
+    		}
 		}
 		
 		return ExpressionResult.fail();
