@@ -13,6 +13,18 @@ import com.loki2302.expression.BinaryOperationFamily;
 import com.loki2302.expression.Expression;
 import com.loki2302.expression.Type;
 
+// TODO:
+// probably, I need to change the logic in evaluate():
+// if(expression.getType() == assignment) {
+//   left = evaluateAsLvalue(left)
+//   right = evaluateAsRvalue(right)
+//   ...
+// } else {
+//   left = evaluateAsRvalue(left)
+//   right = evaluateAsRvalue(right)
+//   ...
+// }
+
 public class DOMBinaryExpressionEvaluator {	
 	@Inject CastOperationRepository castOperationRepository;
 	@Inject BinaryOperationRepository binaryOperationRepository;
