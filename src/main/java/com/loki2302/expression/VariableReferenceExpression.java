@@ -1,6 +1,5 @@
 package com.loki2302.expression;
 
-// TODO: replace/extends with SetVariableExpression/GetVariableExpression
 public class VariableReferenceExpression implements Expression {
 	private final Type variableType;
 	
@@ -17,9 +16,4 @@ public class VariableReferenceExpression implements Expression {
 	public Type getResultType() {
 		return variableType;
 	}
-
-	@Override
-	public boolean isLvalue() {
-		return true;
-	}	
 }

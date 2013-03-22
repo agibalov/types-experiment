@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
 import com.google.inject.Provides;
+import com.google.inject.name.Named;
+import com.loki2302.evaluation.AlternativeBinaryExpressionMatcher;
+import com.loki2302.evaluation.BinaryExpressionMatcher;
+import com.loki2302.evaluation.ExactBinaryExpressionMatcher;
+import com.loki2302.evaluation.ImplicitLeftBinaryExpressionMatcher;
+import com.loki2302.evaluation.ImplicitRightBinaryExpressionMatcher;
 import com.loki2302.evaluation.operations.BinaryOperationDefinition;
 import com.loki2302.evaluation.operations.BinaryOperationRepository;
 import com.loki2302.evaluation.operations.CastOperationDefinition;
@@ -57,5 +64,29 @@ public class OperationsModule extends AbstractModule {
 		List<CastOperationDefinition> definitions = new ArrayList<CastOperationDefinition>();
 		definitions.add(new CastOperationDefinition(Type.Int, Type.Double, true, CastOperationType.IntToDouble));		
 		return new CastOperationRepository(definitions);
+	}
+	
+	@Provides 
+	@Named("assignmentBinaryExpressionMatcher") 
+	BinaryExpressionMatcher provideAssignmentBinaryExpressionMatcher(
+	        ExactBinaryExpressionMatcher exact,
+	        ImplicitRightBinaryExpressionMatcher implicitRight) {
+	    return new AlternativeBinaryExpressionMatcher(new BinaryExpressionMatcher[] {
+	            exact,
+	            implicitRight
+	    });
+	}
+    
+	@Provides 
+    @Named("nonAssignmentBinaryExpressionMatcher") 
+    BinaryExpressionMatcher provideNonAssignmentBinaryExpressionMatcher(
+            ExactBinaryExpressionMatcher exact,
+            ImplicitRightBinaryExpressionMatcher implicitRight,
+            ImplicitLeftBinaryExpressionMatcher implicitLeft) {
+        return new AlternativeBinaryExpressionMatcher(new BinaryExpressionMatcher[] {
+                exact,
+                implicitRight,
+                implicitLeft
+        });
 	}
 }

@@ -19,9 +19,4 @@ public class DoubleLiteralExpression implements Expression {
 	public Type getResultType() {
 		return Type.Double;
 	}
-
-	@Override
-	public boolean isLvalue() {
-		return false;
-	}
 }

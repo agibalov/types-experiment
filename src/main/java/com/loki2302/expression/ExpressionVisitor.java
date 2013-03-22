@@ -7,4 +7,6 @@ public interface ExpressionVisitor<T> {
 	T visitCastExpression(CastExpression expression);
 	T visitBinaryExpression(BinaryExpression expression);
 	T visitVariableReferenceExpression(VariableReferenceExpression expression);
+	T visitSetVariableValueExpression(SetVariableValueExpression expression);
+	T visitGetVariableValueExpression(GetVariableValueExpression expression);
 }

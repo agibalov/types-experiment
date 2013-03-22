@@ -38,9 +38,4 @@ public class BinaryExpression implements Expression {
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visitBinaryExpression(this);
 	}
-
-	@Override
-	public boolean isLvalue() {
-		return false;
-	}
 }

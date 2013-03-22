@@ -19,9 +19,4 @@ public class IntLiteralExpression implements Expression {
 	public Type getResultType() {
 		return Type.Int;
 	}
-
-	@Override
-	public boolean isLvalue() {
-		return false;
-	}
 }
